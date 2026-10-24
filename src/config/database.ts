@@ -1,14 +1,18 @@
-// src/config/database.ts
 import mongoose from 'mongoose';
 
 export const connectDatabase = async (): Promise<void> => {
-  const MONGO_URI = 'mongodb+srv://cmruizg1993_db_user:ywLLZT0xCEZtEr8Q@employees.hnxme7l.mongodb.net/';
+  const mongoUri = process.env.MONGO_URI;
+
+  if (!mongoUri) {
+    console.error('Falta configurar la variable de entorno MONGO_URI');
+    process.exit(1);
+  }
+
   try {
-    await mongoose.connect(MONGO_URI);
-    console.log('🔄 [Database]: Conexión exitosa a MongoDB');
+    await mongoose.connect(mongoUri);
+    console.log('[Database] Conexión exitosa a MongoDB');
   } catch (error) {
-    console.error('❌ Error crítico al conectar a la base de datos:', error);
+    console.error('[Database] Error al conectar con MongoDB:', error);
     process.exit(1);
   }
 };
-    

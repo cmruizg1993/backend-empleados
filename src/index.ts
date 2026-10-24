@@ -7,7 +7,7 @@ import authRoutes from './routes/auth.routes.js';
 
  
 const app=express(); 
-const port = 3000 
+const port = Number(process.env.PORT) || 3000;
 connectDatabase(); // Conexión a la base de datos
 app.use(morgan('dev'));
  
